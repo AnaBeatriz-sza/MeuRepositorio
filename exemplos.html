@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>O Tesouro Perdido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+
+        /* ------------------------------------------- */
+        /* ESTILOS ESPECÍFICOS PARA O FORMULÁRIO (Manter Vertical) */
+        /* ------------------------------------------- */
+
+        form {
+            max-width: 600px;
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        fieldset {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        legend {
+            font-weight: bold;
+            padding: 0 10px;
+            color: #333;
+            font-size: 1.1em;
+        }
+        /* Garantindo a organização vertical de rótulos e campos */
+        label[for^="nome_"],
+        label[for^="email_"],
+        label[for^="tel_"],
+        label[for^="nascimento_"],
+        label[for^="area_"],
+        label[for^="horas_"],
+        label[for^="prioridade"],
+        label[for^="motivacao_"],
+        label[for^="curriculo_"] {
+            display: block; 
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-weight: bold; 
+        }
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="tel"],
+        form input[type="date"],
+        form input[type="number"],
+        form input[type="color"],
+        form textarea,
+        form select,
+        form input[type="file"] {
+            width: 98%; 
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; 
+        }
+        /* Estilos para Radio e Checkbox */
+        form p:has(input[type="radio"]) {
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        form input[type="radio"] {
+            margin-right: 5px;
+            width: auto; 
+        }
+        form label[for^="exp_"] {
+            font-weight: normal; 
+            display: inline-block;
+            margin-right: 15px;
+        }
+        /* Botões */
+        form button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+        form button:hover {
+            background-color: #0056b3;
+        }
+        /* ------------------------------------------- */
+        /* FIM DOS ESTILOS DO FORMULÁRIO */
+        /* ------------------------------------------- */
+    </style>
+    </head>
+<body>
+    <h1>O Tesouro Perdido</h1>
+
+    <p>Um tesouro perdido há séculos foi encontrado na ilha de Cyberspace. 
+    A expedição, liderada pela Dra. Ada Lovelace, encontrou artefatos que 
+    revelam a história de um povo antigo.</p>
+
+    <p>Localização:</p>
+        <ul>
+            <li>Monte Sintaxe, 12.</li>
+        </ul>
+<img src = "img/gato-cinzento-se-senta-em-uma-mesa-com-livros-e-cadernos-estudando-em-casa_89381-3195.jpg" alt = "Gatinho Estudando arquiologia">
+    <p>Data da descoberta:</p>
+        <ul>
+            <li>25 de setembro.</li>
+        </ul>
+
+        <h2>Catálogo de Artefatos Encontrados</h2>
+
+        <table border="1">
+            <caption>Lista dos artefatos descobertos pela equipe de expedição</caption>
+            
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Artefato</th>
+                    <th>Peso (kg)</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                <tr>
+                    <td>Manuscrito</td>
+                    <td>Mapa Antigo</td>
+                    <td>0.8</td>
+                    <td>Em avaliação</td>
+                </tr>
+                <tr>
+                    <td>Manuscrito</td>
+                    <td>Diário de Bordo</td>
+                    <td>1.2</td>
+                    <td>Analisado</td>
+                </tr>
+                <tr>
+                    <td>Joalheria</td>
+                    <td>Amuleto de Jade (Pequeno)</td>
+                    <td>0.3</td>
+                    <td>Analisado</td>
+                </tr>
+                <tr>
+                    <td>Joalheria</td>
+                    <td>Amuleto de Jade (Grande)</td>
+                    <td>0.6</td>
+                    <td>Em avaliação</td>
+                </tr>
+                <tr>
+                    <td>Ferramenta</td>
+                    <td>Bússola Criptografada</td>
+                    <td>0.9</td>
+                    <td>Pendente</td>
+                </tr>
+            </tbody>
+    
+            <tfoot>
+                <tr>
+                    <td colspan="4">Peso Total: 3.8 Kg</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <table border="1">
+                <tr>
+                    <td colspan="2">1</td>
+                    <td rowspan="2">2</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">3</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td colspan="2">5</td>
+                </tr>
+        </table> 
+        
+        <h2>Inscrição para Voluntários de Pesquisa Digital</h2>
+
+        <form action="/cadastro-voluntarios" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <legend>Dados Pessoais e Contato</legend>
+
+                <label for="nome_vol">Nome Completo:</label>
+                <input type="text" id="nome_vol" name="nome" placeholder="Seu nome" required>
+
+                <label for="email_vol">E-mail:</label>
+                <input type="email" id="email_vol" name="email" placeholder="seu.email@exemplo.com" required>
+
+                <label for="tel_vol">Telefone (com DDD):</label>
+                <input type="tel" id="tel_vol" name="telefone" placeholder="(XX) XXXXX-XXXX" pattern="[0-9]{2} [0-9]{4,5}-[0-9]{4}" title="Formato: XX XXXXX-XXXX ou XX XXXX-XXXX" required>
+
+                <label for="nascimento_vol">Data de Nascimento:</label>
+                <input type="date" id="nascimento_vol" name="data_nascimento" required>
+            </fieldset>
+
+            <fieldset>
+                <legend>Habilidades e Disponibilidade</legend>
+
+                <label for="area_atuacao">Área de Principal Atuação:</label>
+                <select id="area_atuacao" name="area_atuacao" required>
+                    <option value="" disabled selected>Selecione sua área</option>
+                    <option value="arqueologia">Arqueologia</option>
+                    <option value="ti">Tecnologia da Informação (TI)</option>
+                    <option value="design">Design / Modelagem 3D</option>
+                    <option value="historia">História / Humanidades</option>
+                    <option value="outra">Outra</option>
+                </select>
+
+                <p>Já participou de expedições de campo (físico)?</p>
+                <input type="radio" id="exp_sim" name="experiencia_campo" value="sim" required>
+                <label for="exp_sim">Sim</label>
+                <input type="radio" id="exp_nao" name="experiencia_campo" value="nao">
+                <label for="exp_nao">Não</label>
+                
+                <label for="horas_disp">Disponibilidade Semanal (Horas em trabalho digital): <span id="valor_range">5</span></label>
+                <input type="range" id="horas_disp" name="horas_semana" min="1" max="20" value="5" step="1" oninput="document.getElementById('valor_range').innerText = this.value" required>
+
+                <label for="prioridade">Cor de Prioridade (Apenas para fins de sistema):</label>
+                <input type="color" id="prioridade" name="prioridade_cor" value="#007bff">
+
+                <label for="motivacao_vol">Por que você deseja se voluntariar?</label>
+                <textarea id="motivacao_vol" name="motivacao" rows="4" placeholder="Descreva brevemente sua motivação e o que espera contribuir." required></textarea>
+                
+                <label for="curriculo_file">Anexar Currículo (Apenas PDF, máx. 1MB):</label>
+                <input type="file" id="curriculo_file" name="curriculo" accept=".pdf">
+
+            </fieldset>
+
+            <button type="submit">Enviar Candidatura</button>
+            <button type="reset">Limpar Dados</button>
+        </form>
+            <a href="tesouro.html">Leia mais sobre a descoberta em nosso blog.</a>
+
+</body>
+</html>
