@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela do Brasileirão</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .tabela-brasileirao {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .tabela-brasileirao caption {
+            font-size: 1.5em;
+            font-weight: bold;
+            padding: 10px;
+            text-align: left;
+            background-color: #e0e0e0;
+            border-bottom: 2px solid #ccc;
+        }
+        .tabela-brasileirao thead th {
+            background-color: #f0f0f0;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.85em;
+            border-bottom: 1px solid #ddd;
+        }
+        .tabela-brasileirao thead th:first-child {
+            text-align: left;
+            width: 30%; /* Para 'CLASSIFICAÇÃO' e nomes dos times */
+        }
+        /* Ajuste do colspan no cabeçalho após remover a coluna do emblema */
+        .tabela-brasileirao thead tr th:nth-child(1) {
+             /* A coluna de classificação agora não tem colspan e ocupa o espaço das duas anteriores */
+             text-align: left;
+             width: auto;
+        }
+
+        .tabela-brasileirao tbody td {
+            padding: 8px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9em;
+        }
+        .tabela-brasileirao tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+        .tabela-brasileirao tbody td:first-child {
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+        .posicao-clube {
+            display: flex;
+            align-items: center;
+        }
+        .classificacao-cor {
+            width: 4px;
+            height: 100%;
+            margin-right: 5px;
+            align-self: stretch;
+        }
+        .clube-nome {
+            flex-grow: 1;
+            text-align: left;
+            margin-left: 5px;
+        }
+        /* Cores de Classificação */
+        .libertadores { background-color: #0080ff; /* Azul */ }
+        .pre-libertadores { background-color: #4dc4ff; /* Azul Claro */ }
+        .sul-americana { background-color: #00cc66; /* Verde */ }
+        .rebaixados { background-color: #ff3333; /* Vermelho */ }
+        .class-palmeiras .classificacao-cor { background-color: #0080ff; }
+        .class-flamengo .classificacao-cor { background-color: #0080ff; }
+        .class-cruzeiro .classificacao-cor { background-color: #0080ff; }
+        .class-mirassol .classificacao-cor { background-color: #0080ff; }
+        .class-botafogo .classificacao-cor { background-color: #4dc4ff; }
+        .class-bahia .classificacao-cor { background-color: #4dc4ff; }
+        .class-fluminense .classificacao-cor { background-color: #00cc66; }
+        .class-saopaulo .classificacao-cor { background-color: #00cc66; }
+        .class-vasco .classificacao-cor { background-color: #00cc66; }
+        .class-bragantino .classificacao-cor { background-color: #00cc66; }
+        .class-ceara .classificacao-cor { background-color: #00cc66; }
+        .class-corinthians .classificacao-cor { background-color: #00cc66; }
+        .class-gremio .classificacao-cor { background-color: #00cc66; }
+        .class-atletico-mg .classificacao-cor { background-color: #00cc66; }
+        .class-internacional .classificacao-cor { background-color: #00cc66; }
+        .class-santos .classificacao-cor { background-color: #00cc66; }
+        .class-vitoria .classificacao-cor { background-color: transparent; } /* Sem cor */
+        .class-fortaleza .classificacao-cor { background-color: #ff3333; }
+        .class-juventude .classificacao-cor { background-color: #ff3333; }
+        .class-sport .classificacao-cor { background-color: #ff3333; }
+
+        /* Estilo dos Últimos Jogos */
+        .ult-jogos {
+            display: flex;
+            justify-content: center;
+        }
+        .resultado {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin: 0 1px;
+            display: inline-block;
+        }
+        .vitoria { background-color: #00cc66; } /* Verde */
+        .empate { background-color: #ffcc00; } /* Amarelo */
+        .derrota { background-color: #ff3333; } /* Vermelho */
+
+        /* Legenda */
+        .legenda {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 0.8em;
+        }
+        .legenda-item {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        .legenda-cor {
+            width: 12px;
+            height: 12px;
+            margin-right: 5px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <table class="tabela-brasileirao">
+        <caption>TABELA</caption>
+        <thead>
+            <tr>
+                <th>CLASSIFICAÇÃO</th>
+                <th>P</th>
+                <th>J</th>
+                <th>V</th>
+                <th>E</th>
+                <th>D</th>
+                <th>GP</th>
+                <th>GC</th>
+                <th>SG</th>
+                <th>%</th>
+                <th>ÚLT. JOGOS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="class-palmeiras">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">1 Palmeiras</span>
+                    </div>
+                </td>
+                <td>61</td>
+                <td>27</td>
+                <td>19</td>
+                <td>4</td>
+                <td>4</td>
+                <td>51</td>
+                <td>23</td>
+                <td>28</td>
+                <td>75</td>
+                <td class="ult-jogos">
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado empate"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado vitoria"></span>
+                </td>
+            </tr>
+            <tr class="class-flamengo">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">2 Flamengo</span>
+                    </div>
+                </td>
+                <td>58</td>
+                <td>27</td>
+                <td>17</td>
+                <td>7</td>
+                <td>3</td>
+                <td>53</td>
+                <td>13</td>
+                <td>40</td>
+                <td>71</td>
+                <td class="ult-jogos">
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                </td>
+            </tr>
+            <tr class="class-cruzeiro">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">3 Cruzeiro</span>
+                    </div>
+                </td>
+                <td>53</td>
+                <td>28</td>
+                <td>15</td>
+                <td>8</td>
+                <td>5</td>
+                <td>41</td>
+                <td>21</td>
+                <td>20</td>
+                <td>63</td>
+                <td class="ult-jogos">
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado empate"></span>
+                    <span class="resultado vitoria"></span>
+                </td>
+            </tr>
+            <tr class="class-mirassol">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">4 Mirassol</span>
+                    </div>
+                </td>
+                <td>49</td>
+                <td>28</td>
+                <td>13</td>
+                <td>10</td>
+                <td>5</td>
+                <td>47</td>
+                <td>30</td>
+                <td>17</td>
+                <td>58</td>
+                <td class="ult-jogos">
+                    <span class="resultado derrota"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                </td>
+            </tr>
+            <tr class="class-botafogo">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">5 Botafogo</span>
+                    </div>
+                </td>
+                <td>43</td>
+                <td>28</td>
+                <td>12</td>
+                <td>7</td>
+                <td>9</td>
+                <td>37</td>
+                <td>26</td>
+                <td>11</td>
+                <td>51</td>
+                <td class="ult-jogos">
+                    <span class="resultado derrota"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                </td>
+            </tr>
+            <tr class="class-bahia">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">6 Bahia</span>
+                    </div>
+                </td>
+                <td>43</td>
+                <td>26</td>
+                <td>12</td>
+                <td>7</td>
+                <td>7</td>
+                <td>34</td>
+                <td>30</td>
+                <td>4</td>
+                <td>55</td>
+                <td class="ult-jogos">
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                </td>
+            </tr>
+            <tr class="class-fluminense">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">7 Fluminense</span>
+                    </div>
+                </td>
+                <td>38</td>
+                <td>26</td>
+                <td>11</td>
+                <td>5</td>
+                <td>10</td>
+                <td>34</td>
+                <td>33</td>
+                <td>1</td>
+                <td>48</td>
+                <td class="ult-jogos">
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                </td>
+            </tr>
+            <tr class="class-saopaulo">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">8 São Paulo</span>
+                    </div>
+                </td>
+                <td>38</td>
+                <td>27</td>
+                <td>10</td>
+                <td>8</td>
+                <td>9</td>
+                <td>31</td>
+                <td>28</td>
+                <td>3</td>
+                <td>46</td>
+                <td class="ult-jogos">
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado empate"></span>
+                </td>
+            </tr>
+            <tr class="class-vasco">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">9 Vasco</span>
+                    </div>
+                </td>
+                <td>36</td>
+                <td>28</td>
+                <td>10</td>
+                <td>6</td>
+                <td>12</td>
+                <td>44</td>
+                <td>41</td>
+                <td>3</td>
+                <td>42</td>
+                <td class="ult-jogos">
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado vitoria"></span>
+                </td>
+            </tr>
+            <tr class="class-bragantino">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">10 Bragantino</span>
+                    </div>
+                </td>
+                <td>36</td>
+                <td>28</td>
+                <td>10</td>
+                <td>6</td>
+                <td>12</td>
+                <td>34</td>
+                <td>43</td>
+                <td>-9</td>
+                <td>42</td>
+                <td class="ult-jogos">
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado empate"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado derrota"></span>
+                </td>
+            </tr>
+            <tr class="class-ceara">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">11 Ceará</span>
+                    </div>
+                </td>
+                <td>35</td>
+                <td>27</td>
+                <td>9</td>
+                <td>8</td>
+                <td>10</td>
+                <td>27</td>
+                <td>25</td>
+                <td>2</td>
+                <td>43</td>
+                <td class="ult-jogos">
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                </td>
+            </tr>
+            <tr class="class-corinthians">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">12 Corinthians</span>
+                    </div>
+                </td>
+                <td>33</td>
+                <td>28</td>
+                <td>8</td>
+                <td>9</td>
+                <td>11</td>
+                <td>30</td>
+                <td>35</td>
+                <td>-5</td>
+                <td>39</td>
+                <td class="ult-jogos">
+                    <span class="resultado derrota"></span>
+                    <span class="resultado empate"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                </td>
+            </tr>
+            <tr class="class-gremio">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">13 Grêmio</span>
+                    </div>
+                </td>
+                <td>33</td>
+                <td>27</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>28</td>
+                <td>33</td>
+                <td>-5</td>
+                <td>40</td>
+                <td class="ult-jogos">
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado empate"></span>
+                    <span class="resultado vitoria"></span>
+                </td>
+            </tr>
+            <tr class="class-atletico-mg">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">14 Atlético-MG</span>
+                    </div>
+                </td>
+                <td>33</td>
+                <td>27</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>26</td>
+                <td>31</td>
+                <td>-5</td>
+                <td>40</td>
+                <td class="ult-jogos">
+                    <span class="resultado derrota"></span>
+                    <span class="resultado empate"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                </td>
+            </tr>
+            <tr class="class-internacional">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">15 Internacional</span>
+                    </div>
+                </td>
+                <td>32</td>
+                <td>27</td>
+                <td>8</td>
+                <td>8</td>
+                <td>11</td>
+                <td>33</td>
+                <td>41</td>
+                <td>-8</td>
+                <td>39</td>
+                <td class="ult-jogos">
+                    <span class="resultado derrota"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado empate"></span>
+                </td>
+            </tr>
+            <tr class="class-santos">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">16 Santos</span>
+                    </div>
+                </td>
+                <td>31</td>
+                <td>27</td>
+                <td>8</td>
+                <td>7</td>
+                <td>12</td>
+                <td>28</td>
+                <td>39</td>
+                <td>-11</td>
+                <td>38</td>
+                <td class="ult-jogos">
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado empate"></span>
+                </td>
+            </tr>
+            <tr class="class-vitoria">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">17 Vitória</span>
+                    </div>
+                </td>
+                <td>25</td>
+                <td>27</td>
+                <td>5</td>
+                <td>10</td>
+                <td>12</td>
+                <td>24</td>
+                <td>42</td>
+                <td>-18</td>
+                <td>30</td>
+                <td class="ult-jogos">
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado derrota"></span>
+                </td>
+            </tr>
+            <tr class="class-fortaleza">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">18 Fortaleza</span>
+                    </div>
+                </td>
+                <td>24</td>
+                <td>27</td>
+                <td>6</td>
+                <td>6</td>
+                <td>15</td>
+                <td>26</td>
+                <td>43</td>
+                <td>-17</td>
+                <td>29</td>
+                <td class="ult-jogos">
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado empate"></span>
+                    <span class="resultado derrota"></span>
+                </td>
+            </tr>
+            <tr class="class-juventude">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">19 Juventude</span>
+                    </div>
+                </td>
+                <td>23</td>
+                <td>27</td>
+                <td>6</td>
+                <td>5</td>
+                <td>16</td>
+                <td>22</td>
+                <td>52</td>
+                <td>-30</td>
+                <td>28</td>
+                <td class="ult-jogos">
+                    <span class="resultado derrota"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado vitoria"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado derrota"></span>
+                </td>
+            </tr>
+            <tr class="class-sport">
+                <td>
+                    <div class="posicao-clube">
+                        <div class="classificacao-cor"></div>
+                        <span class="clube-nome">20 Sport</span>
+                    </div>
+                </td>
+                <td>17</td>
+                <td>27</td>
+                <td>2</td>
+                <td>11</td>
+                <td>14</td>
+                <td>21</td>
+                <td>42</td>
+                <td>-21</td>
+                <td>20</td>
+                <td class="ult-jogos">
+                    <span class="resultado empate"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado derrota"></span>
+                    <span class="resultado empate"></span>
+                    <span class="resultado vitoria"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="legenda">
+        <div class="legenda-item"><span class="legenda-cor libertadores"></span> libertadores</div>
+        <div class="legenda-item"><span class="legenda-cor pre-libertadores" style="background-color: #4dc4ff;"></span> pré-libertadores</div>
+        <div class="legenda-item"><span class="legenda-cor sul-americana"></span> sul-americana</div>
+        <div class="legenda-item"><span class="legenda-cor rebaixados"></span> rebaixados</div>
+        <div class="legenda-item"><span class="resultado vitoria" style="width: 12px; height: 12px; margin-right: 5px;"></span> vitória</div>
+        <div class="legenda-item"><span class="resultado empate" style="width: 12px; height: 12px; margin-right: 5px;"></span> empate</div>
+        <div class="legenda-item"><span class="resultado derrota" style="width: 12px; height: 12px; margin-right: 5px;"></span> derrota</div>
+    </div>
+
+</body>
+</html>
