@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Serviços Públicos</title>
+    </head>
+<body>
+    <header>
+        <h1>PORTAL DE SERVIÇOS PÚBLICOS</h1>
+        <img src="Brasão_de_Pernambuco.svg.png" alt="Brasão Oficial do Estado" width="250" height="250">
+    </header>
+
+    <main>
+        
+        <nav>
+            <h2>Menu Principal</h2>
+            <ul>
+                <li><a href="/saude">Saúde Pública</a></li>
+                <li>
+                    <a href="/educacao">Educação</a>
+                    <ul>
+                        <li><a href="/educacao/idosos">Educação de Idosos</a></li>
+                    </ul>
+                </li>
+                <li><a href="/seguranca">Segurança</a></li>
+            </ul>
+        </nav>
+
+        <article>
+            <h2>Cadastro Obrigatório</h2>
+            <p>Com esse cadastro, você não precisa mais ir até a prefeitura para resolver as coisas. Dá pra fazer tudo online!</p>
+            
+            <p>
+                O cadastro é <em>obrigatório</em> para usar qualquer serviço do portal. Suas informações serão verificadas em bancos de dados oficiais e o seu login também garante atendimento prioritário!
+                <br>
+                Para saber mais sobre a proteção de seus dados, consulte a <abbr title="Lei Geral de Proteção de Dados">LGPD</abbr>.
+            </p>
+            
+            <form action="/cadastro" method="post">
+                
+                <label for="nome_completo">Nome completo:</label>
+                <input type="text" id="nome_completo" name="nome_completo" required>
+                
+                <label for="email_contato">E-mail de contato:</label>
+                <input type="email" id="email_contato" name="email_contato" required>
+                
+                <input type="submit" value="Enviar cadastro">
+            </form>
+        </article>
+
+        <figure>
+            <img src="whatsapp-image-2021-05-12-at-07.33.46.webp" alt="Pessoas em fila para atendimento público" width="250" height="250">
+
+            <figcaption>Atendimento presencial em todo o país</figcaption>
+        </figure>
+
+    </main>
+    
+    <footer>
+        <p>© 2025 Portal de Serviços</p>
+    </footer>
+
+</body>
+</html>
