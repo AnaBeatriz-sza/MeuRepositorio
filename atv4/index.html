@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Sobreposição de Texto (Modificado)</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .container-imagem {
+            width: 100vw;
+            height: 100vh;
+            
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                url('image_e6a027.jpg'); 
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .caixa-texto {
+            width: 90%; 
+            max-width: 900px;
+            padding: 30px 20px;
+            margin-top: 50px;
+            
+            background-color: rgba(0, 0, 0, 0.9);
+            
+            color: #ff5757;
+            font-size: 1.2em;
+            line-height: 1.6;
+            text-align: justify;
+            
+            box-shadow: 
+                0 10px 20px rgba(0, 0, 0, 0.5),  
+                0 6px 6px rgba(0, 0, 0, 0.3);    
+        }
+    </style>
+</head>
+<body>
+    <div class="container-imagem">
+        <div class="caixa-texto">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat cupiditate facere cumque ratione odio doloremque deserunt dignissimos sunt eum alias voluptatum repellendus, quis, dolores perspiciatis enim vero nam quisquam possimus.</p>
+        </div>
+    </div>
+</body>
+</html>
