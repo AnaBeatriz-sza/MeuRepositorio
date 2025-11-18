@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta-name ="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Grid + Flexbox</title>
+
+    <style>
+        body {
+            background: #1e1e1e;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* CAIXAS PADRÃO */
+        .top-header, 
+        .top-nav, 
+        .page-footer, 
+        .bottom-header, 
+        aside, 
+        main, 
+        .article-box, 
+        .article-header, 
+        .article-section, 
+        .article-footer {
+            border: 2px solid #888;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        /* GRID PRINCIPAL */
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+        }
+
+        /* NAV usando Flexbox */
+        .top-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .top-nav a {
+            color: #bbb;
+            text-decoration: none;
+        }
+
+        /* Article como Flexbox vertical */
+        .article-box {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .article-header, 
+        .article-section, 
+        .article-footer {
+            background: #2a2a2a;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="top-header">header</header>
+
+    <nav class="top-nav">
+        nav 
+        <a href="#">link 1</a>
+        <a href="#">link 2</a>
+        <a href="#">link 3</a>
+    </nav>
+
+    <div class="container">
+        <aside>aside</aside>
+
+        <main>
+            <h2>main</h2>
+            <article class="article-box">
+                <h3>article</h3>
+
+                <header class="article-header">header</header>
+
+                <section class="article-section">section</section>
+
+                <footer class="article-footer">footer</footer>
+            </article>
+        </main>
+    </div>
+
+    <footer class="page-footer">footer</footer>
+
+    <h1 class="bottom-header">header</h1>
+
+</body>
+</html>
