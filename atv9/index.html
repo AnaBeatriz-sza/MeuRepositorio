@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fisio+ Terapia | Sistema Completo</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary:#2563eb;
+      --secondary:#1e40af;
+      --bg:#f1f5f9;
+      --card:#ffffff;
+      --text:#1e293b;
+      --muted:#64748b;
+      --radius:12px;
+      --shadow:0 8px 20px rgba(0,0,0,.08);
+      --sidebar:#0f172a;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text)}
+
+    /* LOGIN */
+    #login-screen{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:linear-gradient(135deg,#2563eb,#4f46e5);
+    }
+    .login-card{
+      background:var(--card);
+      padding:40px;
+      width:100%;
+      max-width:420px;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      text-align:center;
+    }
+    .login-card h2{color:var(--primary);margin-bottom:10px}
+    .login-card p{color:var(--muted);margin-bottom:20px}
+
+    .input-group{text-align:left;margin-bottom:15px}
+    .input-group label{font-size:.85rem;color:var(--muted)}
+    .input-group input{
+      width:100%;padding:12px;border-radius:8px;
+      border:1px solid #cbd5f5;margin-top:4px
+    }
+
+    .btn{
+      width:100%;padding:14px;border:none;border-radius:10px;
+      font-weight:600;cursor:pointer
+    }
+    .btn.primary{background:var(--primary);color:#fff}
+    .btn.secondary{background:var(--secondary);color:#fff;margin-top:8px}
+
+    /* SISTEMA */
+    .system{
+      display:none;
+      min-height:100vh;
+      display:grid;
+      grid-template-columns:260px 1fr;
+      grid-template-rows:70px 1fr;
+      grid-template-areas:
+        "sidebar header"
+        "sidebar main";
+    }
+
+    .sidebar{
+      grid-area:sidebar;
+      background:var(--sidebar);
+      color:#fff;
+      padding:20px
+    }
+    .sidebar h3{text-align:center;color:#60a5fa;margin-bottom:25px}
+    .sidebar a{
+      display:flex;align-items:center;gap:10px;
+      padding:12px;border-radius:8px;
+      color:#cbd5f5;text-decoration:none;margin-bottom:5px
+    }
+    .sidebar a.active,.sidebar a:hover{background:rgba(255,255,255,.1);color:#fff}
+
+    header{
+      grid-area:header;background:var(--card);
+      display:flex;justify-content:space-between;align-items:center;
+      padding:0 25px;box-shadow:var(--shadow)
+    }
+
+    main{grid-area:main;padding:25px}
+
+    .screen{
+      display:none;background:var(--card);
+      padding:25px;border-radius:var(--radius);
+      box-shadow:var(--shadow)
+    }
+    .screen.active{display:block}
+
+    .cards{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;margin-top:20px
+    }
+    .card{
+      background:linear-gradient(135deg,#2563eb,#4f46e5);
+      color:#fff;padding:20px;border-radius:var(--radius)
+    }
+
+    form.grid{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:15px
+    }
+
+    @media(max-width:768px){
+      .system{grid-template-columns:1fr;grid-template-areas:"header" "main"}
+      .sidebar{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <h2>Fisio+ Terapia</h2>
+    <p>Login ou Cadastro</p>
+    <form id="login-form">
+      <div class="input-group"><label>E-mail</label><input type="email" required></div>
+      <div class="input-group"><label>Senha</label><input type="password" required></div>
+      <button class="btn primary">Entrar</button>
+    </form>
+  </div>
+</div>
+
+<!-- SISTEMA -->
+<div class="system" id="system">
+  <aside class="sidebar">
+    <h3>Fisio+</h3>
+    <a class="active" data-screen="dashboard"><i class="fa-solid fa-house"></i> Dashboard</a>
+    <a data-screen="clientes"><i class="fa-solid fa-users"></i> Clientes</a>
+    <a data-screen="profissionais"><i class="fa-solid fa-user-doctor"></i> Profissionais</a>
+    <a data-screen="agendamentos"><i class="fa-solid fa-calendar"></i> Agendamentos</a>
+    <a data-screen="checkin"><i class="fa-solid fa-clipboard-check"></i> Check-in</a>
+    <a data-screen="prontuarios"><i class="fa-solid fa-notes-medical"></i> Prontuários</a>
+    <a data-screen="financeiro"><i class="fa-solid fa-wallet"></i> Financeiro</a>
+    <a data-screen="mensalidades"><i class="fa-solid fa-credit-card"></i> Mensalidades</a>
+    <a data-screen="relatorios"><i class="fa-solid fa-chart-column"></i> Relatórios</a>
+    <a data-screen="config"><i class="fa-solid fa-gear"></i> Configurações</a>
+  </aside>
+
+  <header>
+    <h2 id="title">Dashboard</h2>
+    <button class="btn secondary" onclick="logout()">Sair</button>
+  </header>
+
+  <main>
+    <section id="screen-dashboard" class="screen active">
+      <h3>Painel Geral</h3>
+      <div class="cards">
+        <div class="card">Pacientes Ativos<br><strong>120</strong></div>
+        <div class="card">Sessões Hoje<br><strong>18</strong></div>
+        <div class="card">Faturamento<br><strong>R$ 6.450</strong></div>
+      </div>
+    </section>
+
+    <section id="screen-clientes" class="screen"><h3>Cadastro de Clientes</h3><form class="grid"><input placeholder="Nome"><input placeholder="Telefone"><input placeholder="E-mail"></form></section>
+    <section id="screen-profissionais" class="screen"><h3>Cadastro de Profissionais</h3><form class="grid"><input placeholder="Nome"><input placeholder="Especialidade"></form></section>
+    <section id="screen-agendamentos" class="screen"><h3>Agendamentos</h3></section>
+    <section id="screen-checkin" class="screen"><h3>Check-in de Pacientes</h3></section>
+    <section id="screen-prontuarios" class="screen"><h3>Avaliações e Prontuários</h3></section>
+    <section id="screen-financeiro" class="screen"><h3>Controle Financeiro</h3></section>
+    <section id="screen-mensalidades" class="screen"><h3>Mensalidades</h3></section>
+    <section id="screen-relatorios" class="screen"><h3>Relatórios</h3></section>
+    <section id="screen-config" class="screen"><h3>Configurações do Sistema</h3></section>
+  </main>
+</div>
+
+<script>
+const loginForm=document.getElementById('login-form');
+const loginScreen=document.getElementById('login-screen');
+const system=document.getElementById('system');
+
+loginForm.onsubmit=e=>{
+  e.preventDefault();
+  loginScreen.style.display='none';
+  system.style.display='grid';
+};
+
+function logout(){location.reload()}
+
+const links=document.querySelectorAll('.sidebar a');
+const screens=document.querySelectorAll('.screen');
+
+links.forEach(link=>{
+  link.onclick=()=>{
+    links.forEach(a=>a.classList.remove('active'));
+    screens.forEach(s=>s.classList.remove('active'));
+    link.classList.add('active');
+    document.getElementById('screen-'+link.dataset.screen).classList.add('active');
+    document.getElementById('title').innerText=link.innerText;
+  }
+});
+</script>
+
+</body>
+</html>
